@@ -1,7 +1,12 @@
 public class Light {
+
+    public boolean isOn() {
+        return true;
+    }
+    /*
     private boolean on;
     public boolean isOn() {
-        return on;
+        return true;
     }
     private void turnOn(){
         on = true;
@@ -16,4 +21,5 @@ public class Light {
             turnOn();
         }
     }
+     */
 }

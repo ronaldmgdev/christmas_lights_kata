@@ -14,9 +14,11 @@ public class CoordinatePair {
     public static CoordinatePair of(int leftTopX, int leftTopY, int rightBottomX, int rightBottomY){
         return new CoordinatePair(leftTopX, leftTopY, rightBottomX, rightBottomY);
     }
-
+    /*
     public int leftTopX(){ return leftTopX; }
     public int leftTopY(){ return leftTopY; }
     public int rightBottomX() { return rightBottomX; }
     public int rightBottomY() { return rightBottomY; }
+
+     */
 }

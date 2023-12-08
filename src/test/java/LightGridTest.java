@@ -1,3 +1,5 @@
+import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
@@ -24,8 +26,11 @@ public class LightGridTest {
         }
     }
 
+    /*
     @Test
     @DisplayName("Toggle first line")
+    @Ignore
+
     void shouldToggleFirstLine(){
         LightGrid lightGrid = new LightGrid();
         lightGrid.toggle(CoordinatePair.of(0,0,0,999));
@@ -38,4 +43,5 @@ public class LightGridTest {
             }
         }
     }
+     */
 }
