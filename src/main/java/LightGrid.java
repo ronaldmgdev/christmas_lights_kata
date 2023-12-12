@@ -11,15 +11,12 @@ public class LightGrid {
     public void turnOn(Area area) {
         applyCommandToArea(new Brighter(), area);
     }
-
     public void turnOff(Area area){
         applyCommandToArea(new Dimmer(), area);
     }
-
     public void toggle(Area area) {
         applyCommandToArea(new BrightnessToggler(), area);
     }
-
     private void applyCommandToArea(LightBrightnessChanger theCommand, Area area) {
         for (int x = area.getX1(); x <= area.getX2(); x++) {
             for (int y = area.getY1(); y <= area.getY2(); y++) {
@@ -27,11 +24,6 @@ public class LightGrid {
             }
         }
     }
-
-    public boolean isLit(int x, int y) {
-        return brightness[x][y] > 0;
-    }
-
     private static class BrightnessToggler implements LightBrightnessChanger {
         @Override
         public int execute(int brightness) {
