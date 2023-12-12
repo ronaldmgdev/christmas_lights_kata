@@ -1,41 +1,45 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class LightGridTest {
+    private LightGrid lightGrid;
 
-    int numberOfLights = 1000;
+    @BeforeEach
+    public void initialLightGrid() {
+        lightGrid = new LightGrid();
+    }
     @Test
-    @DisplayName("Create Light Grid class")
-    void shouldCreateLightGrid(){
-        LightGrid lightGrid = new LightGrid();
+    void intialBrightness() {
+        int expectedBrightness = 0;
+        int actualBrightness = lightGrid.getTotalBrightness();
+
+        assertEquals(expectedBrightness, actualBrightness);
     }
 
     @Test
-    @DisplayName("Turn on all lights")
-    void ShouldTurnOnAllLights() {
-        LightGrid lightGrid = new LightGrid();
-        lightGrid.turnOn(CoordinatePair.of(0,0,999,999));
-        for (int i = 0; i < numberOfLights; i++) {
-            for (int j = 0; j < numberOfLights; j++) {
-                assertThat(lightGrid.getLight(i,j).isOn(), is(true));
-            }
-        }
+    @DisplayName("turn on/off one light")
+    void turnOneLightOnAndOff() {
+        lightGrid.turnOn(new Area(0,0,0,0));
+        lightGrid.turnOff(new Area(0,0,0,0));
+
+        int expectedBrightness = 0;
+        int actualBrightness = lightGrid.getTotalBrightness();
+
+        assertEquals(expectedBrightness, actualBrightness);
+    }
+    @Test
+    @DisplayName("Turn on 2 lights")
+    void turnOn2Lights() {
+        lightGrid.turnOn(new Area(0, 0, 0, 0));
+        lightGrid.turnOn(new Area(2, 0, 2, 0));
+
+        int expectedBrightness = 2;
+        int actualBrightness = lightGrid.getTotalBrightness();
+
+        assertEquals(expectedBrightness, actualBrightness);
     }
 
-    @Test
-    @DisplayName("Toggle first line")
-    void shouldToggleFirstLine(){
-        LightGrid lightGrid = new LightGrid();
-        lightGrid.toggle(CoordinatePair.of(0,0,0,999));
-        for (int i = 0; i < numberOfLights; i++) {
-            for (int j = 0; j <numberOfLights; j++) {
-                if(i==0) {
-                    assertThat(lightGrid.getLight(i,j).isOn(), is(true));
-                }
-                assertThat(lightGrid.getLight(i,j).isOn(), is(false));
-            }
-        }
-    }
 }

@@ -1,21 +1,53 @@
-public class LightGrid {
-    private Light[][] lights = new Light[1000][1000];
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
-    public void turnOn(CoordinatePair coordinatePair) {
-        for (int col = coordinatePair.leftTopX(); col <= coordinatePair.rightBottomX(); col++) {
-            for (int row = coordinatePair.leftTopY(); row <= coordinatePair.rightBottomY(); row++) {
-                getLight(row, col).toggle();
+public class LightGrid {
+    int[][] brightness = new int[1000][1000];
+
+    public int getTotalBrightness() {
+        return Arrays.stream(brightness).flatMapToInt(Arrays::stream).sum();
+    }
+
+    public void turnOn(Area area) {
+        applyCommandToArea(new Brighter(), area);
+    }
+
+    public void turnOff(Area area){
+        applyCommandToArea(new Dimmer(), area);
+    }
+
+    public void toggle(Area area) {
+        applyCommandToArea(new BrightnessToggler(), area);
+    }
+
+    private void applyCommandToArea(LightBrightnessChanger theCommand, Area area) {
+        for (int x = area.getX1(); x <= area.getX2(); x++) {
+            for (int y = area.getY1(); y <= area.getY2(); y++) {
+                brightness[x][y] = theCommand.execute(brightness[x][y]);
             }
         }
     }
-    public Light getLight(int row, int col) {
-        return lights[row][col];
+
+    public boolean isLit(int x, int y) {
+        return brightness[x][y] > 0;
     }
-    public void toggle(CoordinatePair coordinatePair){
-        for (int col = coordinatePair.leftTopX(); col <= coordinatePair.rightBottomX(); col++) {
-            for (int row = coordinatePair.leftTopY(); row <= coordinatePair.rightBottomY(); row++) {
-                getLight(row, col).toggle();
-            }
+
+    private static class BrightnessToggler implements LightBrightnessChanger {
+        @Override
+        public int execute(int brightness) {
+            return brightness + 2;
+        }
+    }
+    private static class Brighter implements LightBrightnessChanger {
+        @Override
+        public int execute(int brightness) {
+            return brightness + 1;
+        }
+    }
+    private static class Dimmer implements LightBrightnessChanger {
+        @Override
+        public int execute(int brightness) {
+            return Math.max(0, brightness - 1);
         }
     }
 }
