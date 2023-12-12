@@ -17,10 +17,10 @@ public class LightGrid {
     public void toggle(Area area) {
         applyCommandToArea(new BrightnessToggler(), area);
     }
-    private void applyCommandToArea(LightBrightnessChanger theCommand, Area area) {
+    private void applyCommandToArea(LightBrightnessChanger lightBrightnessChanger, Area area) {
         for (int x = area.getX1(); x <= area.getX2(); x++) {
             for (int y = area.getY1(); y <= area.getY2(); y++) {
-                brightness[x][y] = theCommand.execute(brightness[x][y]);
+                brightness[x][y] = lightBrightnessChanger.execute(brightness[x][y]);
             }
         }
     }
